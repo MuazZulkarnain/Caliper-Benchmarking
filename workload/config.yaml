@@ -1,26 +1,26 @@
 test:
   workers:
-    number: 200
+    number: 100
   rounds:
     - label: test
       txDuration: 30
       rateControl:
         type: fixed-rate
         opts:
-          tps: 2000
+          tps: 1500
       workload:
-        module: workload/readAsset.js
+        module: workload/readAssetNew.js
         arguments:
-          assets: 100
+          assets: 4000
           contractID: IoT-cc
 monitors:
   resource:
     - module: docker
       options:
-        interval: 1
+        interval: 5
         cpuUsageNormalization: true
         containers:
-          - peer0.org1.example.com
-          - peer0.org2.example.com
-          - peer0.org3.example.com
-          - orderer.example.com
+          - /peer0.org1.example.com
+          - /peer0.org2.example.com
+          - /peer0.org3.example.com
+          - /orderer.example.com
