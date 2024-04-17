@@ -1,17 +1,17 @@
 test:
   workers:
-    number: 1
+    number: 200
   rounds:
     - label: test
       txDuration: 30
       rateControl:
         type: fixed-rate
         opts:
-          tps: 100
+          tps: 2000
       workload:
         module: workload/readAsset.js
         arguments:
-          assets: 10
+          assets: 100
           contractID: IoT-cc
 monitors:
   resource:
