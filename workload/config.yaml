@@ -2,17 +2,49 @@ test:
   workers:
     number: 100
   rounds:
-    - label: test
-      txDuration: 30
+    - label: Read max-rate (1 mil assets with 100 workers)
+      txDuration: 300
       rateControl:
-        type: fixed-rate
+        type: maximum-rate
         opts:
-          tps: 1500
+          tps: 50
+          step: 50
+          sampleInterval: 10
+          includeFailed: true
       workload:
         module: workload/readAssetNew.js
         arguments:
-          assets: 4000
+          assets: 1000000
           contractID: IoT-cc
+    - label: Tokenize max-rate (1 mil assets with 100 workers)
+      txDuration: 300
+      rateControl:
+        type: maximum-rate
+        opts:
+          tps: 50
+          step: 50
+          sampleInterval: 10
+          includeFailed: true
+      workload:
+        module: workload/tokenizeNew.js
+        arguments:
+          assets: 1000000
+          contractID: IoT-cc
+    - label: Transfer max-rate (1 mil assets with 100 workers)
+      txDuration: 300
+      rateControl:
+        type: maximum-rate
+        opts:
+          tps: 50
+          step: 50
+          sampleInterval: 10
+          includeFailed: true
+      workload:
+        module: workload/transferNew.js
+        arguments:
+          assets: 1000000
+          contractID: IoT-cc
+
 monitors:
   resource:
     - module: docker
